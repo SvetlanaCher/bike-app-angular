@@ -1,0 +1,18 @@
+<div class="right-block" *ngIf="!loading">
+    <div *ngFor="let item of sharedService.bikes" class="right-card">
+        <p> {{ item.name }} </p>
+        <p> {{ item.extra.address}} </p>
+        <p [ngStyle]="{'color': item.free_bikes === 0 ? 'red' : 'black'}"> Quantity of free bikes: {{ item.free_bikes }} </p>
+        <button 
+            (click)="addBike(item)" 
+            [disabled]="item.free_bikes === 0 ? 'true' : null"
+            *ngIf="isBikeAdded(item) == false"
+        >Add to favorite</button>
+        <button 
+            (click)="removeBike(item)" 
+            [disabled]="item.free_bikes === 0 ? 'true' : null"
+            *ngIf="isBikeAdded(item) == true"
+        >Remove from favorite</button>
+    </div>
+</div>
+<p *ngIf="loading">Loading...</p>
